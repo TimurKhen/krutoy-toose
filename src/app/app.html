@@ -1,45 +1,4 @@
-<div>Привет, {{ userName() }}!</div>
-@if (userData()) {
-  <p>
-    {{ userData() | json }}
-  </p>
-}
-<button (click)="closeApp()">Закрыть</button>
-
-<hr>
-
-<div class="card">
-  <h3>Облачное хранилище</h3>
-  <button (click)="saveToCloud()">Сохранить секрет</button>
-  <button (click)="loadFromCloud()">Загрузить секрет</button>
-
-  <p>Значение из облака: {{ cloudValue() ?? 'Нет данных' }}</p>
-</div>
-
-<div class="card">
-  <h3>Датчики движения</h3>
-  <button (click)="startSensors()">Старт датчиков</button>
-  <button (click)="stopSensors()">Стоп датчиков</button>
-
-  <div style="display: flex; gap: 20px; margin-top: 15px;">
-
-    @if (gyroService.data(); as gyro) {
-      <div>
-        <h4>Гироскоп</h4>
-        <p>X: {{ gyro.x | number:'1.2-2' }}</p>
-        <p>Y: {{ gyro.y | number:'1.2-2' }}</p>
-        <p>Z: {{ gyro.z | number:'1.2-2' }}</p>
-      </div>
-    }
-
-    @if (accelService.data(); as accel) {
-      <div>
-        <h4>Акселерометр</h4>
-        <p>X: {{ accel.x | number:'1.2-2' }}</p>
-        <p>Y: {{ accel.y | number:'1.2-2' }}</p>
-        <p>Z: {{ accel.z | number:'1.2-2' }}</p>
-      </div>
-    }
-
-  </div>
+<div class="container bg_color">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
 </div>

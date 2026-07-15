@@ -2,33 +2,71 @@ import { Service } from '@angular/core';
 
 declare global {
   interface Window {
-    Telegram: any
+    Telegram: any;
   }
+}
+
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  username: string;
+  language_code: string;
+  allows_write_to_pm: boolean;
+  photo_url: string;
 }
 
 @Service()
 export class Telegram {
-  private tg = window.Telegram.WebApp
+  readonly isAvailable = typeof window !== 'undefined' && !!window.Telegram?.WebApp?.initData;
+  tg: any = null;
 
-  constructor() {}
+  constructor() {
+    if (this.isAvailable) {
+      this.tg = window.Telegram.WebApp;
+    }
+  }
 
   get webApp() {
-    return this.tg
+    return this.isAvailable ? this.tg : null;
   }
 
-  get user() {
-    return this.tg.initDataUnsafe?.user
+  get user(): User {
+    if (!this.isAvailable) {
+      return {
+        id: 99999999,
+        first_name: 'Разработчик',
+        last_name: 'Локальный',
+        username: 'dev_local',
+        language_code: "ru",
+        allows_write_to_pm: true,
+        photo_url: 't'
+      };
+    }
+    return this.tg.initDataUnsafe?.user;
   }
 
-  ready() {
-    this.tg.ready()
+  ready(): void {
+    if (this.isAvailable) {
+      this.tg.ready();
+    } else {
+      console.log('[TG-Mock]: App is ready');
+    }
   }
 
-  expand() {
-    this.tg.expand()
+  expand(): void {
+    if (this.isAvailable) {
+      this.tg.expand();
+    } else {
+      console.log('[TG-Mock]: App expanded');
+    }
   }
 
-  close() {
-    this.tg.close()
+  close(): void {
+    if (this.isAvailable) {
+      this.tg.close();
+    } else {
+      console.log('[TG-Mock]: App closed');
+    }
   }
 }

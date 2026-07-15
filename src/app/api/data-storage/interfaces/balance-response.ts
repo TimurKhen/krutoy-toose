@@ -1,0 +1,3 @@
+interface BalanceResponse {
+  balance: number;
+}
