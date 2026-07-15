@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://kringeproduction.ru',
+  apiUrl: 'https://www.kringeproduction.ru',
 };
