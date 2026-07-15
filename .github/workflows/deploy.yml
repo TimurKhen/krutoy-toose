@@ -1,0 +1,16 @@
+name: Deploy
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy
+        run: |
+          cd /home/gshorti/src/krutoy-toose
+          git pull
+          docker build -t krutoi-toose .
+          docker run -d -p 8080:80 krutoi-toose:latest
