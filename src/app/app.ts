@@ -1,12 +1,81 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Telegram } from './telegram/telegram';
+import { CloudStorage } from './telegram/cloudStorage/cloud-storage';
+import { Gyroscope } from './telegram/gyroscope/gyroscope';
+import { Accelerometer } from './telegram/accelerometer/accelerometer';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [DecimalPipe],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
-export class App {
-  protected readonly title = signal('krutoi-toose');
+export class App implements OnInit, OnDestroy {
+  // Делаем сервисы датчиков public, чтобы читать их сигналы напрямую из HTML
+  public gyroService = inject(Gyroscope);
+  public accelService = inject(Accelerometer);
+  // Сигналы для состояния компонента
+  userName = signal<string>('');
+  cloudValue = signal<string | null>(null);
+  // Современное внедрение зависимостей
+  private tgService = inject(Telegram);
+  private cloudService = inject(CloudStorage);
+
+  ngOnInit() {
+    this.tgService.ready();
+    this.tgService.expand();
+
+    this.getUserInformation();
+  }
+
+  getUserInformation() {
+    const user = this.tgService.user;
+    if (user) {
+      this.userName.set(user.first_name);
+    }
+  }
+
+  closeApp() {
+    this.tgService.close();
+  }
+
+  // --- Блок Облачного хранилища ---
+
+  async saveToCloud() {
+    try {
+      await this.cloudService.setItem('my_secret_key', 'Hello Zoneless Angular 22!');
+    } catch (e) {
+      console.error('Ошибка сохранения', e);
+    }
+  }
+
+  async loadFromCloud() {
+    try {
+      const value = await this.cloudService.getItem('my_secret_key');
+      // Записываем полученное значение в сигнал
+      this.cloudValue.set(value);
+    } catch (e) {
+      console.error('Ошибка загрузки', e);
+    }
+  }
+
+  // --- Блок Датчиков движения ---
+
+  async startSensors() {
+    const refreshRate = 500;
+
+    // Запускаем асинхронные методы параллельно
+    await Promise.all([this.gyroService.start(refreshRate), this.accelService.start(refreshRate)]);
+  }
+
+  stopSensors() {
+    this.gyroService.stop();
+    this.accelService.stop();
+  }
+
+  ngOnDestroy() {
+    // Останавливаем датчики при уничтожении компонента для экономии батареи
+    this.stopSensors();
+  }
 }
