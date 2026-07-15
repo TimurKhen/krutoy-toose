@@ -3,11 +3,11 @@ import { Telegram } from './telegram/telegram';
 import { CloudStorage } from './telegram/cloudStorage/cloud-storage';
 import { Gyroscope } from './telegram/gyroscope/gyroscope';
 import { Accelerometer } from './telegram/accelerometer/accelerometer';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, JsonPipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -16,6 +16,8 @@ export class App implements OnInit, OnDestroy {
   public accelService = inject(Accelerometer);
   userName = signal<string>('');
   cloudValue = signal<string | null>(null);
+  userData = signal<any>(null);
+
   private tgService = inject(Telegram);
   private cloudService = inject(CloudStorage);
 
@@ -28,6 +30,7 @@ export class App implements OnInit, OnDestroy {
 
   getUserInformation() {
     const user = this.tgService.user;
+    this.userData.set(user);
     if (user) {
       this.userName.set(user.first_name);
     }

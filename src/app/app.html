@@ -1,4 +1,9 @@
 <div>Привет, {{ userName() }}!</div>
+@if (userData()) {
+  <p>
+    {{ userData() | json }}
+  </p>
+}
 <button (click)="closeApp()">Закрыть</button>
 
 <hr>
