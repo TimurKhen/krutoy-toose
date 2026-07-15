@@ -12,13 +12,10 @@ import { DecimalPipe } from '@angular/common';
   styleUrl: './app.scss',
 })
 export class App implements OnInit, OnDestroy {
-  // Делаем сервисы датчиков public, чтобы читать их сигналы напрямую из HTML
   public gyroService = inject(Gyroscope);
   public accelService = inject(Accelerometer);
-  // Сигналы для состояния компонента
   userName = signal<string>('');
   cloudValue = signal<string | null>(null);
-  // Современное внедрение зависимостей
   private tgService = inject(Telegram);
   private cloudService = inject(CloudStorage);
 
@@ -40,8 +37,6 @@ export class App implements OnInit, OnDestroy {
     this.tgService.close();
   }
 
-  // --- Блок Облачного хранилища ---
-
   async saveToCloud() {
     try {
       await this.cloudService.setItem('my_secret_key', 'Hello Zoneless Angular 22!');
@@ -53,19 +48,15 @@ export class App implements OnInit, OnDestroy {
   async loadFromCloud() {
     try {
       const value = await this.cloudService.getItem('my_secret_key');
-      // Записываем полученное значение в сигнал
       this.cloudValue.set(value);
     } catch (e) {
       console.error('Ошибка загрузки', e);
     }
   }
 
-  // --- Блок Датчиков движения ---
-
   async startSensors() {
     const refreshRate = 500;
 
-    // Запускаем асинхронные методы параллельно
     await Promise.all([this.gyroService.start(refreshRate), this.accelService.start(refreshRate)]);
   }
 
@@ -75,7 +66,6 @@ export class App implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Останавливаем датчики при уничтожении компонента для экономии батареи
     this.stopSensors();
   }
 }

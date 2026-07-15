@@ -8,24 +8,15 @@ export interface AccelerometerData {
 
 @Service()
 export class Accelerometer {
+  readonly data = signal<AccelerometerData | null>(null);
   private tg = window.Telegram.WebApp;
   private acc = window.Telegram.WebApp.Accelerometer;
-
-  readonly data = signal<AccelerometerData | null>(null);
 
   constructor() {}
 
   get isStarted(): boolean {
     return this.acc.isStarted;
   }
-
-  private readonly changeHandler = () => {
-    this.data.set({
-      x: this.acc.x,
-      y: this.acc.y,
-      z: this.acc.z
-    });
-  };
 
   start(refreshRate: number = 1000): Promise<boolean> {
     return new Promise((resolve) => {
@@ -43,4 +34,12 @@ export class Accelerometer {
     this.acc.stop();
     this.data.set(null);
   }
+
+  private readonly changeHandler = () => {
+    this.data.set({
+      x: this.acc.x,
+      y: this.acc.y,
+      z: this.acc.z,
+    });
+  };
 }
