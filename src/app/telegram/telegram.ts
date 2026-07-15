@@ -6,6 +6,16 @@ declare global {
   }
 }
 
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  username: string;
+  language_code: string;
+  allows_write_to_pm: boolean;
+  photo_url: string;
+}
+
 @Service()
 export class Telegram {
   readonly isAvailable = typeof window !== 'undefined' && !!window.Telegram?.WebApp?.initData;
@@ -21,14 +31,16 @@ export class Telegram {
     return this.isAvailable ? this.tg : null;
   }
 
-  get user() {
+  get user(): User {
     if (!this.isAvailable) {
-      // Имитируем пользователя Telegram для разработки на ПК
       return {
         id: 99999999,
-        first_name: 'Разработчик (ПК)',
+        first_name: 'Разработчик',
         last_name: 'Локальный',
         username: 'dev_local',
+        language_code: "ru",
+        allows_write_to_pm: true,
+        photo_url: 't'
       };
     }
     return this.tg.initDataUnsafe?.user;

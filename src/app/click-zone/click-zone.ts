@@ -1,17 +1,10 @@
-import {
-  Component,
-  DestroyRef,
-  ElementRef,
-  inject,
-  OnInit,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Telegram } from '../telegram/telegram';
 import { debounceTime, Subject, switchMap } from 'rxjs';
 import { ClickReactionAnimation } from './click-reaction-animation/click-reaction-animation';
 import { ScoreHandler } from '../handlers/score-handler/score-handler';
+import { DataStorage } from '../api/data-storage/data-storage';
 
 @Component({
   selector: 'app-click-zone',
@@ -21,12 +14,11 @@ import { ScoreHandler } from '../handlers/score-handler/score-handler';
 })
 export class ClickZone implements OnInit {
   userData = signal<any>(null);
-  tooseButton = viewChild<ElementRef<HTMLButtonElement>>('tooseButton');
+  private tgService = inject(Telegram);
   private scoreHandler = inject(ScoreHandler);
   userScore = this.scoreHandler.currentScore;
-  private tgService = inject(Telegram);
+  private dataStorage = inject(DataStorage);
   private destroyRef = inject(DestroyRef);
-
   private saveSubject = new Subject<void>();
 
   constructor() {
@@ -42,8 +34,8 @@ export class ClickZone implements OnInit {
   ngOnInit() {
     this.tgService.ready();
     this.tgService.expand();
-    this.getUserInformation();
 
+    this.getUserInformation();
     this.loadFromCloud();
   }
 
@@ -64,7 +56,16 @@ export class ClickZone implements OnInit {
 
   async saveToCloud() {
     try {
-      console.log('Сохраняем счет в базу:', this.userScore());
+      const user = this.userData();
+
+      if (!user || !user.id) {
+        console.warn('Данные пользователя еще не загружены, сохранение пропущено');
+        return;
+      }
+
+      await this.dataStorage.click(user.id, this.userScore());
+
+      console.log('Счет сохранен:', this.userScore());
     } catch (e) {
       console.error('Ошибка сохранения', e);
     }
