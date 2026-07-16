@@ -1,19 +1,10 @@
 import { Service } from '@angular/core';
+import { User } from './user';
 
 declare global {
   interface Window {
     Telegram: any;
   }
-}
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  language_code: string;
-  allows_write_to_pm: boolean;
-  photo_url: string;
 }
 
 @Service()
@@ -38,9 +29,10 @@ export class Telegram {
         first_name: 'Разработчик',
         last_name: 'Локальный',
         username: 'dev_local',
-        language_code: "ru",
+        language_code: 'ru',
         allows_write_to_pm: true,
-        photo_url: 't'
+        photo_url:
+          'https://abrakadabra.fun/uploads/posts/2022-02/1644169591_2-abrakadabra-fun-p-avatarka-s-ulibkoi-3.png',
       };
     }
     return this.tg.initDataUnsafe?.user;

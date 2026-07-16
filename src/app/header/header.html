@@ -1,14 +1,24 @@
 <div class="header">
   @if (userData(); as user) {
-    <div class="user-data">
-      <!-- Выводим first_name вместо name -->
-      <p>{{ user.first_name }}</p>
-      <p class="score">{{ userScore() | number }}</p>
-    </div>
-  } @else {
-    <div class="user-data">
-      <p>Загрузка игрока...</p>
-      <p class="score">{{ userScore() | number }}</p>
-    </div>
+      <div class="user-data" animate.enter="enter">
+        <span class="avatar">
+          <img [src]="user.photo_url" />
+        </span>
+        <span class="score">
+          @if (isSaving()) {
+            <p
+              class="loading-text"
+              animate.enter="text-enter"
+              animate.leave="text-leave"
+            >Сохранение...</p>
+          } @else {
+            <p
+              class="score-text"
+              animate.enter="text-enter"
+              animate.leave="text-leave"
+            >{{ userScore() | shortNumber}} лосяр</p>
+          }
+        </span>
+      </div>
   }
 </div>

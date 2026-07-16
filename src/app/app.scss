@@ -3,7 +3,12 @@
   flex-direction: column;
 
   background-color: var(--tg-theme-secondary-bg-color);
-  padding: 15px;
+
+  padding-top: var(--tg-safe-area-inset-top);
+  padding-left: var(--tg-safe-area-inset-left);
+  padding-right: var(--tg-safe-area-inset-right);
+  padding-bottom: var(--tg-safe-area-inset-bottom);
+
   border-radius: 12px;
   margin-top: 20px;
 
