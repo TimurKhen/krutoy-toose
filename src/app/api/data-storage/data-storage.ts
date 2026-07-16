@@ -28,6 +28,7 @@ export class DataStorage {
   }
 
   click(userId: number, tapCounts: number): Observable<BalanceResponse> {
+    console.log(tapCounts)
     return this.http
       .post<BalanceResponse>(
         this.apiUrl + '/tap',
