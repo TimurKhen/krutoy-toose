@@ -46,10 +46,10 @@ export class ClickZone implements OnInit {
 
               this.pendingClicks += clicksToSave;
 
-              setTimeout(() => this.scoreHandler.isSavingScore.set(false), 1500);
+              setTimeout(() => this.scoreHandler.isSavingScore.set(false), 700);
               return EMPTY;
             }),
-            delay(1000),
+            delay(700),
             tap(() => {
               this.scoreHandler.isSavingScore.set(false);
             }),
