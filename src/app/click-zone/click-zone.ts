@@ -29,7 +29,7 @@ export class ClickZone implements OnInit {
   constructor() {
     this.saveSubject
       .pipe(
-        debounceTime(1000),
+        debounceTime(500),
         switchMap(() => {
           const user = this.userData();
 
