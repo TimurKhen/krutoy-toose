@@ -3,8 +3,9 @@ FROM node:alpine AS build
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 RUN npm ci
+RUN npm install -g @angular/cli
 COPY . .
-RUN npm run build
+RUN ng build --configuration production
 
 # STAGE 2: Copy to nginx
 FROM nginx:alpine
