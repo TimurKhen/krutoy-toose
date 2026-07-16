@@ -4,7 +4,7 @@
 
   background-color: var(--tg-theme-secondary-bg-color);
 
-  padding-top: var(--tg-content-safe-area-inset-top);
+  padding-top: max(12px, var(--tg-content-safe-area-inset-top, 0px));
   padding-bottom: var(--tg-content-safe-area-inset-bottom);
   padding-left: 0;
   padding-right: 0;
