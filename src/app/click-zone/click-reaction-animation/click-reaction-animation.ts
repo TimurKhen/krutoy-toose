@@ -70,8 +70,9 @@ export class ClickReactionAnimation implements OnInit, OnDestroy {
     const offsetX = (event.clientX - centerX) / (rect.width / 2);
     const offsetY = (event.clientY - centerY) / (rect.height / 2);
 
-    const clickTiltX = -offsetY * 25;
-    const clickTiltY = offsetX * 25;
+    const percentChange = 15;
+    const clickTiltX = -offsetY * percentChange;
+    const clickTiltY = offsetX * percentChange;
 
     const currentScale = this.getCurrentScale();
 
