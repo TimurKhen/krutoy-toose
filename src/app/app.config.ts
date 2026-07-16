@@ -7,6 +7,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +15,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideZonelessChangeDetection(),
     provideHttpClient(),
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        // config.src будет приходить из HTML.
+        // Добавляем слеш в начало, чтобы путь всегда шел от корня сайта
+        return `/${config.src}`;
+      }
+    }
   ],
 };

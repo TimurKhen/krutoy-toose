@@ -6,11 +6,12 @@ import { ClickReactionAnimation } from './click-reaction-animation/click-reactio
 import { ScoreHandler } from '../handlers/score-handler/score-handler';
 import { DataStorage } from '../api/data-storage/data-storage';
 import { ClickEffect } from './click-effect/click-effect';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-click-zone',
   standalone: true,
-  imports: [ClickReactionAnimation, ClickEffect],
+  imports: [ClickReactionAnimation, ClickEffect, NgOptimizedImage],
   templateUrl: './click-zone.html',
   styleUrl: './click-zone.scss',
 })
@@ -64,6 +65,11 @@ export class ClickZone implements OnInit {
     this.tgService.ready();
     this.tgService.expand();
     this.getUserInformation();
+
+    const user = this.userData();
+    if (user?.id) {
+      this.scoreHandler.init(user.id);
+    }
   }
 
   onCoinClick(event?: Event) {
