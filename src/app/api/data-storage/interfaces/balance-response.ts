@@ -1,3 +1,3 @@
-interface BalanceResponse {
+export interface BalanceResponse {
   balance: number;
 }

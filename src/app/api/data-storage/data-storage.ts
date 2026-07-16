@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable, queue, tap } from 'rxjs';
 import { ScoreHandler } from '../../handlers/score-handler/score-handler';
+import { BalanceResponse } from './interfaces/balance-response';
 
 @Service()
 export class DataStorage {

@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .footer {
+    width: 70%;
+    border-radius: 20px;
+    background: var(--tg-theme-secondary-bg-color, #C4C4C4);
+    padding: 0 16px;
+
+    display: grid;
+    grid-auto-flow: column; /* Элементы выстраиваются в ряд */
+    place-items: center;    /* Центрирует, если элемент один */
+    justify-content: space-between; /* Распределяет, если их несколько */
+  }
+}
