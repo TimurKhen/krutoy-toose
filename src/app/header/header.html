@@ -1,6 +1,12 @@
 <div class="header">
   @if (userData(); as user) {
-      <div class="user-data" animate.enter="enter">
+      <div
+        class="user-data"
+        animate.enter="enter"
+        (pointerdown)="showHideAccurate($event)"
+        [class.accurate]="isShowAccurateScore()"
+      >
+
         <span class="avatar">
           <img [src]="user.photo_url" />
         </span>
@@ -16,9 +22,10 @@
               class="score-text"
               animate.enter="text-enter"
               animate.leave="text-leave"
-            >{{ userScore() | shortNumber}} лосяр</p>
+            >{{ userScore() | shortNumber:isShowAccurateScore()}} лосяр</p>
           }
         </span>
       </div>
   }
 </div>
+
