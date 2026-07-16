@@ -7,57 +7,17 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Gyroscope } from '../../telegram/gyroscope/gyroscope';
-import { Accelerometer } from '../../telegram/accelerometer/accelerometer';
 
 @Directive({
   selector: '[appClickReactionAnimation]',
 })
-export class ClickReactionAnimation implements OnInit, OnDestroy {
+export class ClickReactionAnimation {
   private el = inject(ElementRef).nativeElement as HTMLElement;
-  private gyroService = inject(Gyroscope);
-  private accService = inject(Accelerometer);
 
   private activeAnimation: Animation | null = null;
 
   private currentTiltX = 0;
   private currentTiltY = 0;
-
-  constructor() {
-    effect(() => {
-      const gyroData = this.gyroService.data();
-      const accData = this.accService.data();
-
-      if (gyroData || accData) {
-        const x = gyroData?.x ?? accData?.x ?? 0;
-        const y = gyroData?.y ?? accData?.y ?? 0;
-
-        const targetTiltX = Math.max(-5, Math.min(5, x * 2.5));
-        const targetTiltY = Math.max(-5, Math.min(5, y * 2.5));
-
-        this.currentTiltX += (targetTiltX - this.currentTiltX) * 0.1;
-        this.currentTiltY += (targetTiltY - this.currentTiltY) * 0.1;
-
-        if (!this.activeAnimation || this.activeAnimation.playState === 'finished') {
-          this.el.style.transform = `rotateX(${this.currentTiltX}deg) rotateY(${this.currentTiltY}deg) scale(1)`;
-        }
-      }
-    });
-  }
-
-  async ngOnInit() {
-    try {
-      await this.gyroService.start(50);
-      await this.accService.start(50);
-    } catch (e) {
-      console.warn('Не удалось запустить датчики Telegram:', e);
-    }
-  }
-
-  ngOnDestroy() {
-    this.gyroService.stop();
-    this.accService.stop();
-  }
 
   @HostListener('pointerdown', ['$event'])
   onPointerDown(event: PointerEvent) {

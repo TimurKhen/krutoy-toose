@@ -4,15 +4,14 @@
 
   background-color: var(--tg-theme-secondary-bg-color);
 
-  padding-top: var(--tg-safe-area-inset-top);
-  padding-left: var(--tg-safe-area-inset-left);
-  padding-right: var(--tg-safe-area-inset-right);
-  padding-bottom: var(--tg-safe-area-inset-bottom);
-
+  padding-top: var(--tg-content-safe-area-inset-top);
+  padding-bottom: var(--tg-content-safe-area-inset-bottom);
+  padding-left: 0;
+  padding-right: 0;
   border-radius: 12px;
   margin-top: 20px;
 
   width: 100%;
   height: 100%;
-  flex-grow: 1;
+  // flex-grow: 1;
 }

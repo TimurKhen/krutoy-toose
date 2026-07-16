@@ -4,7 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'shortNumber',
 })
 export class ShortNumberPipe implements PipeTransform {
-  transform(number: number, args?: any): any {
+  transform(number: number, factor: boolean = false): any {
+    if (factor) return number
+
     if (isNaN(number)) return null;
     if (number === null) return 0;
     if (number === 0) return 0;

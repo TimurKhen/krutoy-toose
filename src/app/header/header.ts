@@ -17,6 +17,7 @@ export class Header implements OnInit {
   userScore = this.scoreHandler.currentScore;
   private tgService = inject(Telegram);
   isSaving = this.scoreHandler.isSavingScore;
+  isShowAccurateScore = signal<boolean>(false)
 
   ngOnInit() {
     this.getUserInformation();
@@ -33,5 +34,13 @@ export class Header implements OnInit {
     } catch (e) {
       console.error('Ошибка загрузки', e);
     }
+  }
+
+  showHideAccurate($event: Event) {
+    $event.preventDefault()
+
+    this.isShowAccurateScore.update((v) => !v)
+
+
   }
 }

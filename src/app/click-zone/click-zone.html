@@ -1,9 +1,5 @@
-<div class="container">
+<div class="container" appClickEffect #tooseButton appClickReactionAnimation (pointerdown)="onCoinClick($event)">
   <button
-    #tooseButton
-    (pointerdown)="onCoinClick($event)"
-    appClickReactionAnimation
-    appClickEffect
     class="coin-btn"
   >
     <img alt="coin" src="/coins/main-coin.png">
