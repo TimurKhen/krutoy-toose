@@ -2,16 +2,29 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 
   .footer {
-    width: 70%;
+    height: 52px;
+    width: 80%;
     border-radius: 20px;
     background: var(--tg-theme-secondary-bg-color, #C4C4C4);
-    padding: 0 16px;
 
-    display: grid;
-    grid-auto-flow: column; /* Элементы выстраиваются в ряд */
-    place-items: center;    /* Центрирует, если элемент один */
-    justify-content: space-between; /* Распределяет, если их несколько */
+    display: flex;
+    justify-content: space-around;
+
+    div {
+      box-sizing: border-box;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      align-items: center;
+
+      p {
+        font-size: 1.1cap;
+      }
+    }
   }
 }
