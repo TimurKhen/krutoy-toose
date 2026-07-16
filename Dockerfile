@@ -5,9 +5,11 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
-CMD ["ng", "serve"]
 
 # STAGE 2: Copy to nginx
-#FROM nginx:alpine
-#COPY nginx.conf /etc/nginx/nginx.conf
-#COPY --from=build /usr/src/app/dist/krutoi-toose/browser /usr/share/nginx/html
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /usr/src/app/dist/krutoi-toose/browser /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
