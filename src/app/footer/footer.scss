@@ -8,7 +8,7 @@
     height: 52px;
     width: 80%;
     border-radius: 20px;
-    background: var(--tg-theme-secondary-bg-color, #C4C4C4);
+    background: var(--tg-theme-section-bg-color);
 
     display: flex;
     justify-content: space-around;
@@ -18,11 +18,12 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 2px;
+      justify-content: space-around;
+      // gap: 4px;
       align-items: center;
 
       p {
+        color: var(--tg-theme-button-text-color);
         font-size: 1.1cap;
       }
     }

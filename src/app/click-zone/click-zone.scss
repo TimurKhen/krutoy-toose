@@ -9,6 +9,11 @@
 
   perspective: 1000px;
 
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+
+
   .coin-btn {
     background: none;
     border: none;
