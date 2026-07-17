@@ -8,7 +8,7 @@
     </div>
 
     @if (canBuy()) {
-      <button class="can-buy">Купить за {{ data().price | shortNumber }} лосяр</button>
+      <button matRipple class="can-buy">Купить за {{ data().price | shortNumber }} лосяр</button>
     } @else {
       <button class="cant-buy">{{ data().price | shortNumber }} лосяр</button>
     }

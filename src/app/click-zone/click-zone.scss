@@ -51,6 +51,12 @@
       opacity: 0.8;
       mix-blend-mode: screen;
       transform: scale(1.1);
+
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -webkit-transform: translate3d(0, 0, 0);
+      -moz-transform: translate3d(0, 0, 0);
+      will-change: transform;
     }
   }
 }

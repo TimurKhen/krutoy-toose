@@ -65,11 +65,6 @@ export class ClickZone implements OnInit {
     this.tgService.ready();
     this.tgService.expand();
     this.getUserInformation();
-
-    const user = this.userData();
-    if (user?.id) {
-      this.scoreHandler.init(user.id);
-    }
   }
 
   onCoinClick(event?: Event) {

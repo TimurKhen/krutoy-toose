@@ -2,10 +2,11 @@ import { Component, computed, inject, input } from '@angular/core';
 import { Item } from '../interfaces/item';
 import { ScoreHandler } from '../../handlers/score-handler/score-handler';
 import { ShortNumberPipe } from '../../pipes/short-number-pipe/short-number-pipe';
+import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'app-improvement',
-  imports: [ShortNumberPipe],
+  imports: [ShortNumberPipe, MatRipple],
   templateUrl: './improvement.html',
   styleUrl: './improvement.scss',
 })
