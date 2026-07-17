@@ -1,18 +1,23 @@
-import { inject, Service, signal } from '@angular/core';
+import { effect, inject, Injector, Service, signal } from '@angular/core';
 import { DataStorage } from '../../api/data-storage/data-storage';
+import { setupCloseConfirmation } from '../../telegram/closeConfirmationHandler/closeConfirmation';
 
 @Service()
 export class ScoreHandler {
   currentScore = signal<number>(0);
   isSavingScore = signal<boolean>(false);
   private dataStorage = inject(DataStorage);
+  private injector = inject(Injector);
+
+  constructor() {
+    setupCloseConfirmation(this.isSavingScore, this.injector);
+  }
 
   async init(userId: number) {
-    await this.dataStorage.initFromCloud();
-    this.currentScore.set(this.dataStorage.offlineTotalScore());
-
     this.dataStorage.getBalance(userId).subscribe({
       next: (response) => {
+        console.log('[VALUE from backend]');
+        console.log(response);
         const unsynced = this.dataStorage.unsyncedTaps();
         this.currentScore.set(response.balance + unsynced);
 
@@ -21,6 +26,8 @@ export class ScoreHandler {
         }
       },
       error: (err) => {
+        this.dataStorage.initFromCloud();
+        this.currentScore.set(this.dataStorage.offlineTotalScore());
         console.warn(err);
       },
     });
