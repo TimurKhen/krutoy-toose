@@ -17,6 +17,6 @@ export class App implements OnInit {
 
   ngOnInit() {
     const user = this.tgService.user;
-    this.dataService.register(user.id).subscribe((data) => console.log(data));
+    this.dataService.register(user.id).subscribe();
   }
 }

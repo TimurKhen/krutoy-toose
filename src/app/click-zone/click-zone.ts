@@ -6,18 +6,19 @@ import { ClickReactionAnimation } from './click-reaction-animation/click-reactio
 import { ScoreHandler } from '../handlers/score-handler/score-handler';
 import { DataStorage } from '../api/data-storage/data-storage';
 import { ClickEffect } from './click-effect/click-effect';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-click-zone',
   standalone: true,
-  imports: [ClickReactionAnimation, ClickEffect],
+  imports: [ClickReactionAnimation, ClickEffect, NgOptimizedImage],
   templateUrl: './click-zone.html',
   styleUrl: './click-zone.scss',
 })
 export class ClickZone implements OnInit {
   userData = signal<any>(null);
 
-  private pendingClicks = 0;
+  private pendingClicks = signal<number>(0);
 
   private tgService = inject(Telegram);
   private scoreHandler = inject(ScoreHandler);
@@ -33,18 +34,18 @@ export class ClickZone implements OnInit {
         switchMap(() => {
           const user = this.userData();
 
-          const clicksToSave = this.pendingClicks;
+          const clicksToSave = this.pendingClicks();
 
           if (!user || !user.id || clicksToSave === 0) return EMPTY;
 
-          this.pendingClicks = 0;
+          this.pendingClicks.set(0);
           this.scoreHandler.isSavingScore.set(true);
 
           return this.dataStorage.click(user.id, clicksToSave).pipe(
             catchError((error) => {
               console.error('Ошибка сохранения', error);
 
-              this.pendingClicks += clicksToSave;
+              this.pendingClicks.update((v) => v + clicksToSave);
 
               setTimeout(() => this.scoreHandler.isSavingScore.set(false), 700);
               return EMPTY;
@@ -64,6 +65,11 @@ export class ClickZone implements OnInit {
     this.tgService.ready();
     this.tgService.expand();
     this.getUserInformation();
+
+    const user = this.userData();
+    if (user?.id) {
+      this.scoreHandler.init(user.id);
+    }
   }
 
   onCoinClick(event?: Event) {
@@ -74,7 +80,7 @@ export class ClickZone implements OnInit {
 
     this.userScore.update((score) => score + 1);
 
-    this.pendingClicks += 1;
+    this.pendingClicks.update((v) => v + 1);
 
     this.saveSubject.next();
   }

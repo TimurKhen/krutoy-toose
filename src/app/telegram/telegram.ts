@@ -61,4 +61,20 @@ export class Telegram {
       console.log('[TG-Mock]: App closed');
     }
   }
+
+  enableClosingConfirmation() {
+    if (this.isAvailable) {
+      this.tg.enableClosingConfirmation();
+    } else {
+      console.log('[TG-Mock]: App enableClosingConfirmation');
+    }
+  }
+
+  disableClosingConfirmation() {
+    if (this.isAvailable) {
+      this.tg.disableClosingConfirmation();
+    } else {
+      console.log('[TG-Mock]: App disableClosingConfirmation');
+    }
+  }
 }
