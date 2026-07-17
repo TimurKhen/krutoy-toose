@@ -14,4 +14,11 @@
   width: 100%;
   height: 100%;
   // flex-grow: 1;
+
+  app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
 }

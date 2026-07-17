@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from './header/header';
+import { Header } from './components/header/header';
 import { Telegram } from './telegram/telegram';
 import { DataStorage } from './api/data-storage/data-storage';
-import { Footer } from './footer/footer';
+import { Footer } from './components/footer/footer';
 
 @Component({
   selector: 'app-root',

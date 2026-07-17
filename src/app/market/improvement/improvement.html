@@ -1,0 +1,19 @@
+<div class="improvement">
+  <div class="content">
+    <div class="top">
+      <h4 class="title">{{ data().title }}</h4>
+      @if (data().description) {
+        <p class="description">{{ data().description }}</p>
+      }
+    </div>
+
+    @if (canBuy()) {
+      <button class="can-buy">Купить за {{ data().price | shortNumber }} лосяр</button>
+    } @else {
+      <button class="cant-buy">{{ data().price | shortNumber }} лосяр</button>
+    }
+  </div>
+  <div class="image">
+    <img [src]="data().imageUrl">
+  </div>
+</div>
