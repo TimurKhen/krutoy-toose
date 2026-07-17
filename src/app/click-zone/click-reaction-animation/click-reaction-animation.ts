@@ -18,6 +18,7 @@ export class ClickReactionAnimation {
 
   private currentTiltX = 0;
   private currentTiltY = 0;
+  private currentScale = 1;
 
   @HostListener('pointerdown', ['$event'])
   onPointerDown(event: PointerEvent) {
@@ -34,11 +35,28 @@ export class ClickReactionAnimation {
     const clickTiltX = -offsetY * percentChange;
     const clickTiltY = offsetX * percentChange;
 
-    const currentScale = this.getCurrentScale();
-
     if (this.activeAnimation) {
+      // Approximate current scale to avoid visual snapping if animation is interrupted mid-way
+      const currentTime = this.activeAnimation.currentTime as number;
+      if (currentTime !== null) {
+        const progress = currentTime / 1200;
+        if (progress < 0.12) {
+          // Initial to 0.88
+          this.currentScale = this.currentScale + (0.88 - this.currentScale) * (progress / 0.12);
+        } else if (progress < 0.55) {
+          // 0.88 to 1.04
+          this.currentScale = 0.88 + (1.04 - 0.88) * ((progress - 0.12) / 0.43);
+        } else if (progress < 1) {
+          // 1.04 to 1
+          this.currentScale = 1.04 + (1 - 1.04) * ((progress - 0.55) / 0.45);
+        } else {
+          this.currentScale = 1;
+        }
+      }
       this.activeAnimation.cancel();
     }
+
+    const currentScale = this.currentScale;
 
     this.activeAnimation = this.el.animate(
       [
@@ -65,15 +83,5 @@ export class ClickReactionAnimation {
         fill: 'forwards',
       },
     );
-  }
-
-  private getCurrentScale(): number {
-    const style = window.getComputedStyle(this.el);
-    const transform = style.transform;
-    if (transform === 'none' || !transform) return 1;
-
-    const values = transform.split('(')[1].split(')')[0].split(',');
-    const scale = parseFloat(values[0]);
-    return isNaN(scale) ? 1 : scale;
   }
 }
