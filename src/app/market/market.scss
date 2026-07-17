@@ -7,10 +7,8 @@
   padding-left: var(--tg-safe-area-inset-left);
   padding-right: var(--tg-safe-area-inset-right);
   width: 100%;
-  flex: 1 1 auto;
-  min-height: 100%;
-  height: auto;
-  flex-grow: 1;
+  flex: 1;
+  min-height: 0;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
