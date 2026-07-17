@@ -1,0 +1,18 @@
+<div class="container">
+
+  <div class="improvements">
+    <h2>Улучшения</h2>
+    @for (item of improvements(); track item) {
+      <app-improvement [data]="item"></app-improvement>
+    }
+  </div>
+
+  <hr>
+
+  <div class="currencies">
+    <h2>Валюта</h2>
+    @for (item of currencies(); track item) {
+      <app-currency [data]="item"></app-currency>
+    }
+  </div>
+</div>

@@ -1,0 +1,51 @@
+.improvement {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  width: 90%;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--tg-theme-section-bg-color);
+  margin: 0 auto;
+  align-self: center;
+  max-height: 200px;
+
+  gap: 4px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .top {
+      display: flex;
+      flex-direction: column;
+    }
+
+    button {
+      background: var(--tg-theme-button-color);
+      border: none;
+      outline: none;
+      color: var(--tg-theme-button-text-color);
+      padding: 8px 16px;
+      border-radius: 12px;
+    }
+
+    .cant-buy {
+      filter: brightness(0.9);
+    }
+  }
+
+  .image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    justify-self: flex-end;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}

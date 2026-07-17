@@ -20,5 +20,10 @@ export class Footer {
       link: '/',
       title: 'Главная',
     },
+    {
+      image: './icons/cart.svg',
+      link: '/market',
+      title: 'Магазин',
+    },
   ];
 }
