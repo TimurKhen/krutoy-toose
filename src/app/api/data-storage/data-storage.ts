@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { BalanceResponse } from './interfaces/balance-response';
 import { CloudStorage } from '../../telegram/cloudStorage/cloud-storage';
+import { Telegram } from '../../telegram/telegram';
 
 @Service()
 export class DataStorage {
@@ -12,15 +13,21 @@ export class DataStorage {
   private http = inject(HttpClient);
   private cloudStorage = inject(CloudStorage);
   private apiUrl = environment.apiUrl;
+  private telegram = inject(Telegram)
 
   async initFromCloud(): Promise<void> {
-    const [unsyncedResult, scoreResult] = await Promise.all([
-      this.cloudStorage.getItem('unsynced_clicks'),
-      this.cloudStorage.getItem('offline_score'),
-    ]);
+    if (this.telegram.isAvailable) {
+      const [unsyncedResult, scoreResult] = await Promise.all([
+        this.cloudStorage.getItem('unsynced_clicks'),
+        this.cloudStorage.getItem('offline_score'),
+      ]);
 
-    this.unsyncedTaps.set(Number(unsyncedResult) || 0);
-    this.offlineTotalScore.set(Number(scoreResult) || 0);
+      this.unsyncedTaps.set(Number(unsyncedResult) || 0);
+      this.offlineTotalScore.set(Number(scoreResult) || 0);
+    } else {
+      this.unsyncedTaps.set(0)
+      this.offlineTotalScore.set(0)
+    }
   }
 
   register(userId: number): Observable<BalanceResponse> {

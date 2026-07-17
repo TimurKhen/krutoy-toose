@@ -14,9 +14,13 @@ export class ScoreHandler {
   }
 
   async init(userId: number) {
+    console.log('[CS] getting from cloud')
+    await this.dataStorage.initFromCloud();
+
+    console.log('[VALUE fetching]');
     this.dataStorage.getBalance(userId).subscribe({
       next: (response) => {
-        console.log('[VALUE from backend]');
+        console.log('[VALUE selected from backend]');
         console.log(response);
         const unsynced = this.dataStorage.unsyncedTaps();
         this.currentScore.set(response.balance + unsynced);
@@ -26,7 +30,7 @@ export class ScoreHandler {
         }
       },
       error: (err) => {
-        this.dataStorage.initFromCloud();
+        console.log('[VALUE selected from cloud]');
         this.currentScore.set(this.dataStorage.offlineTotalScore());
         console.warn(err);
       },
