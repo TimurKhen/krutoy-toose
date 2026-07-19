@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MatRipple } from '@angular/material/core';
 
 interface Path {
   image: string;
@@ -9,7 +10,7 @@ interface Path {
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink],
+  imports: [RouterLink, MatRipple],
   templateUrl: './footer.html',
   styleUrl: './footer.scss',
 })

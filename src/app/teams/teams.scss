@@ -25,4 +25,36 @@
       width: 100%;
     }
   }
+
+  .no-found {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+
+    img {
+      width: 30%;
+    }
+  }
+}
+
+.add {
+  position: absolute;
+
+  width: 24px;
+  height: 24px;
+  padding: 24px;
+
+  bottom: calc(60px + var(--tg-safe-area-inset-bottom));
+  right: calc(20px + var(--tg-safe-area-inset-right));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  background: var(--tg-theme-button-color);
+  border-radius: 9999px;
 }

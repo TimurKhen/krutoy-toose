@@ -12,7 +12,8 @@
       </div>
     } @else {
       <div class="no-found">
-        <img src="animated/17-2-thumb128.png">
+        <img src="animated/fullduckstwo_agadkaiaatonuuc.gif">
+        <h3>Ничего не найдено</h3>
       </div>
     }
   } @else if (search.error()) {
@@ -21,3 +22,7 @@
     <div class="loading"></div>
   }
 </div>
+
+<button matRipple class="add" (click)="setSearch($event)">
+  <img src="icons/plus.svg">
+</button>
