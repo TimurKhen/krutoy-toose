@@ -1,0 +1,10 @@
+<form novalidate>
+  <div class="input">
+    <input [formField]="searchForm.searchValue">
+  </div>
+  @if (searchForm.searchValue().value()) {
+    <div class="button">
+      <button>Искать</button>
+    </div>
+  }
+</form>

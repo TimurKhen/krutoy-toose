@@ -13,21 +13,4 @@
 
   width: 100%;
   gap: 20px;
-
-  hr {
-    color: var(--tg-theme-section-separator-color);
-  }
-
-  .improvements, .currencies {
-    h2 {
-      align-self: flex-start;
-      margin-left: 12px;
-    }
-
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
 }
