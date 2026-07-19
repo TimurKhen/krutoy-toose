@@ -1,0 +1,27 @@
+form {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  align-self: center;
+  max-height: 200px;
+  color: var(--tg-theme-text-color);
+  overflow: hidden;
+
+  input {
+    background: var(--tg-theme-section-bg-color);
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    border-radius: 12px;
+
+    border: none;
+    outline: none;
+    user-select: auto;
+    caret-color: var(--tg-theme-button-color);
+    color: var(--tg-theme-text-color);
+
+    &::placeholder {
+      color: var(--tg-theme-hint-color);
+    }
+  }
+}

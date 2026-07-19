@@ -1,3 +1,23 @@
 <div class="container">
+  <div class="search">
+    <app-search-bar></app-search-bar>
+  </div>
 
+  @if (search.hasValue()) {
+    @if (teams().length > 0) {
+      <div class="teams">
+        @for (team of teams(); track team) {
+          <app-team [data]="team"></app-team>
+        }
+      </div>
+    } @else {
+      <div class="no-found">
+        <img src="animated/17-2-thumb128.png">
+      </div>
+    }
+  } @else if (search.error()) {
+    <div>Could not load user information</div>
+  } @else if (search.isLoading()) {
+    <div class="loading"></div>
+  }
 </div>

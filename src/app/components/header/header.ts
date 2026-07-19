@@ -36,7 +36,6 @@ export class Header implements OnInit {
       console.log(this.currentUrl());
       if (this.currentUrl().includes('market')) {
         this.isSaving.set(false)
-        // this.
       }
     });
   }

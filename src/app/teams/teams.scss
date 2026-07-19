@@ -12,5 +12,17 @@
   padding-bottom: calc(160px + var(--tg-safe-area-inset-bottom));
 
   width: 100%;
-  gap: 20px;
+  gap: 40px;
+
+  .teams, .search {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    * {
+      width: 100%;
+    }
+  }
 }

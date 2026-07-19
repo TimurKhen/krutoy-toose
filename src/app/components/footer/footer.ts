@@ -16,9 +16,19 @@ interface Path {
 export class Footer {
   paths: Path[] = [
     {
+      image: './icons/cart.svg',
+      link: '/market',
+      title: 'Магазин',
+    },
+    {
       image: './icons/home.svg',
       link: '/',
       title: 'Главная',
-    }
+    },
+    {
+      image: './icons/cart.svg',
+      link: '/teams',
+      title: 'Команды',
+    },
   ];
 }
