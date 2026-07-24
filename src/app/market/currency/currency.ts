@@ -1,7 +1,9 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { ShortNumberPipe } from '../../pipes/short-number-pipe/short-number-pipe';
 import { Item } from '../interfaces/item';
 import { MatRipple } from '@angular/material/core';
+import { BottomSheet } from '../../services/bottom-sheet/bottom-sheet';
+import { PaymentPopup } from '../improvement/payment-popup/payment-popup';
 
 @Component({
   selector: 'app-currency',
@@ -11,4 +13,10 @@ import { MatRipple } from '@angular/material/core';
 })
 export class Currency {
   data = input.required<Item>();
+  private bottomSheet = inject(BottomSheet);
+
+  buyObject($event: MouseEvent) {
+    $event.preventDefault();
+    this.bottomSheet.openBottomSheet(PaymentPopup);
+  }
 }

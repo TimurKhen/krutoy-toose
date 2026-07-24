@@ -1,8 +1,10 @@
+@import "tgColors";
+
 .header {
   width: 100%;
   display: flex;
   justify-content: center;
-  color: var(--tg-theme-text-color);
+  color: $tg-text-color;
 
   .user-data {
     position: relative;
@@ -25,7 +27,7 @@
       height: 40px;
       border-radius: 9999px;
       overflow: hidden;
-      background: var(--tg-theme-header-bg-color);
+      background: $tg-header-bg-color;
 
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -43,7 +45,7 @@
       height: 40px;
       border-radius: 9999px;
       overflow: hidden;
-      background: var(--tg-theme-header-bg-color);
+      background: $tg-header-bg-color;
 
       max-width: 200px;
 

@@ -1,11 +1,14 @@
+@import "tgColors";
+
 .container {
   width: 100%;
   height: 100%;
   flex-grow: 1;
+  //position: relative;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  //justify-content: center;
+  //align-items: center;
 
   perspective: 1000px;
 
@@ -28,10 +31,14 @@
     transform-style: preserve-3d;
     will-change: transform;
 
-    position: relative;
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
     .image {
-      position: relative;
+      position: absolute;
       display: block;
       z-index: 1;
 
