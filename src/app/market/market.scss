@@ -1,25 +1,18 @@
+@use "../../assets/ios-scroll-fix" as fix;
+
 .container {
+  @include fix.fix;
+
   display: flex;
   flex-direction: column;
-  //align-items: center;
 
   padding-top: var(--tg-safe-area-inset-top);
   padding-left: var(--tg-safe-area-inset-left);
   padding-right: var(--tg-safe-area-inset-right);
-  width: 100%;
-  flex: 1;
-  min-height: 0;
-  -webkit-overflow-scrolling: touch;
-  overflow-y: scroll;
-  overflow-x: hidden;
-
-  user-select: none;
-  -webkit-user-drag: none;
-  -moz-user-select: none;
-
-  gap: 20px;
-
   padding-bottom: calc(160px + var(--tg-safe-area-inset-bottom));
+
+  width: 100%;
+  gap: 20px;
 
   hr {
     color: var(--tg-theme-section-separator-color);
@@ -30,6 +23,7 @@
       align-self: flex-start;
       margin-left: 12px;
     }
+
     width: 100%;
     display: flex;
     flex-direction: column;

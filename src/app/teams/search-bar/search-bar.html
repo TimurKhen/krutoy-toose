@@ -1,0 +1,8 @@
+<form novalidate class="input">
+  <input
+    placeholder="Поиск"
+    name="search"
+    [ngModel]="localSearchValue"
+    (ngModelChange)="onSearchChange($event)"
+  >
+</form>

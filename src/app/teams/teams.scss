@@ -1,0 +1,60 @@
+@use "../../assets/ios-scroll-fix" as fix;
+
+.container {
+  @include fix.fix;
+
+  display: flex;
+  flex-direction: column;
+
+  padding-top: var(--tg-safe-area-inset-top);
+  padding-left: var(--tg-safe-area-inset-left);
+  padding-right: var(--tg-safe-area-inset-right);
+  padding-bottom: calc(160px + var(--tg-safe-area-inset-bottom));
+
+  width: 100%;
+  gap: 40px;
+
+  .teams, .search {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    * {
+      width: 100%;
+    }
+  }
+
+  .no-found {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+
+    img {
+      width: 30%;
+    }
+  }
+}
+
+.add {
+  position: absolute;
+
+  width: 24px;
+  height: 24px;
+  padding: 24px;
+
+  bottom: calc(60px + var(--tg-safe-area-inset-bottom));
+  right: calc(20px + var(--tg-safe-area-inset-right));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  background: var(--tg-theme-button-color);
+  border-radius: 9999px;
+}

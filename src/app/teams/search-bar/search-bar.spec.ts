@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import Market from './market';
+import { SearchBar } from './search-bar';
 
-describe('Market', () => {
-  let component: Market;
-  let fixture: ComponentFixture<Market>;
+describe('SearchBar', () => {
+  let component: SearchBar;
+  let fixture: ComponentFixture<SearchBar>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Market],
+      imports: [SearchBar],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Market);
+    fixture = TestBed.createComponent(SearchBar);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

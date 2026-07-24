@@ -1,7 +1,7 @@
 <div class="container">
   <div class="footer">
     @for (item of paths; track item) {
-      <div [routerLink]="item.link" class="path">
+      <div [routerLink]="item.link" class="path" matRipple>
         <img [src]="item.image">
         <p>{{item.title}}</p>
       </div>
