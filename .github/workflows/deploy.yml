@@ -31,5 +31,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           # FIXED: Removed the trailing /browser folder from the path
-          folder: dist/krutoy-toose
+          folder: dist/krutoi-toose
           branch: gh-pages
