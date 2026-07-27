@@ -19,18 +19,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Fixes the Node.js requirement error
+          node-version: '22'
 
       - name: Install Dependencies
         run: npm ci
 
       - name: Build Angular Application
-        # Automatically updates the base href for your specific repository URL
         run: npx ng build --configuration production --base-href /krutoy-toose/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          # Sets the target deployment folder (assumes modern Angular 17/18/19 output)
-          folder: dist/krutoy-toose/browser
+          # FIXED: Removed the trailing /browser folder from the path
+          folder: dist/krutoy-toose
           branch: gh-pages
