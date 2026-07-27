@@ -4,7 +4,7 @@ import { ScoreHandler } from '../../handlers/score-handler/score-handler';
 import { ShortNumberPipe } from '../../pipes/short-number-pipe/short-number-pipe';
 import { MatRipple } from '@angular/material/core';
 import { BottomSheet } from '../../services/bottom-sheet/bottom-sheet';
-import { PaymentPopup } from './payment-popup/payment-popup';
+import { PaymentPopup } from '../currency/payment-popup/payment-popup';
 
 @Component({
   selector: 'app-improvement',
