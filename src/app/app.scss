@@ -1,8 +1,10 @@
+@import "tgColors";
+
 .container {
   display: flex;
   flex-direction: column;
 
-  background-color: var(--tg-theme-secondary-bg-color);
+  background-color: $tg-secondary-bg-color;
 
   padding-top: max(12px, var(--tg-content-safe-area-inset-top, 0px));
   padding-bottom: var(--tg-content-safe-area-inset-bottom);
@@ -21,5 +23,20 @@
     bottom: 0;
     left: 0;
     width: 100%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      /* Создаем градиентную маску для плавного перехода эффекта */
+      mask-image: linear-gradient(to top, black 30%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 30%, transparent 100%);
+
+      z-index: -1; /* Ставим под контент блока */
+    }
   }
 }

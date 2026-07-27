@@ -1,4 +1,6 @@
 @use "../../assets/ios-scroll-fix" as fix;
+@import "tgColors";
+
 
 .container {
   @include fix.fix;
@@ -15,7 +17,7 @@
   gap: 20px;
 
   hr {
-    color: var(--tg-theme-section-separator-color);
+    color: $tg-section-separator-color;
   }
 
   .improvements, .currencies {

@@ -1,4 +1,6 @@
 @use "../../assets/ios-scroll-fix" as fix;
+@import "tgColors";
+
 
 .container {
   @include fix.fix;
@@ -55,6 +57,6 @@
   align-items: center;
   border: none;
   outline: none;
-  background: var(--tg-theme-button-color);
+  background: $tg-button-color;
   border-radius: 9999px;
 }

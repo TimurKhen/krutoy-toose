@@ -1,10 +1,12 @@
+@import "tgColors";
+
 .improvement {
   display: grid;
   grid-template-columns: 3fr 2fr;
   width: 90%;
   padding: 12px;
   border-radius: 12px;
-  background: var(--tg-theme-section-bg-color);
+  background: $tg-section-bg-color;
   margin: 0 auto;
   align-self: center;
   max-height: 200px;
@@ -23,10 +25,10 @@
     }
 
     button {
-      background: var(--tg-theme-button-color);
+      background: $tg-button-color;
       border: none;
       outline: none;
-      color: var(--tg-theme-button-text-color);
+      color: $tg-button-text-color;
       padding: 8px 16px;
       border-radius: 12px;
     }

@@ -1,15 +1,36 @@
-name: Deploy
+name: Build and Deploy Angular to GitHub Pages
+
 on:
   push:
-    branches: [main]
+    branches:
+      - main  # Triggers when a merge or push occurs on the main branch
+
+permissions:
+  contents: write  # Gives permission to push the build to the gh-pages branch
 
 jobs:
-  deploy:
-    runs-on: self-hosted
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Deploy
-        run: |
-          cd /home/gshorti/src/krutoy-toose
-          git pull
-          docker compose up -d --build
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Match this to your Angular project node version
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Angular Application
+        # Replace 'your-repository-name' with your exact GitHub repository name
+        run: npx ng build --configuration production --base-href /your-repository-name/
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/your-project-name/browser # Update this path based on your Angular version
+          branch: gh-pages # The branch the action will deploy the production files to

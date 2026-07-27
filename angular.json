@@ -29,7 +29,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/styles.scss", "src/assets/tgColors.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/assets"]
+            }
           },
           "configurations": {
             "production": {

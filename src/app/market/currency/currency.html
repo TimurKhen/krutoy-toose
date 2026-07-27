@@ -7,7 +7,7 @@
       }
     </div>
 
-    <button matRipple class="can-buy">Купить за {{ data().price | shortNumber }} звёзд</button>
+    <button (click)="buyObject($event)" matRipple class="can-buy">Купить за {{ data().price | shortNumber }} звёзд</button>
   </div>
   <div class="image">
     <img [src]="data().imageUrl">
