@@ -1,4 +1,4 @@
-name: Deploy Krutoy Toose to GitHub Pages
+name: Deploy Angular App to GitHub Pages
 
 on:
   push:
@@ -34,12 +34,15 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: npm run build
+        run: npm run build -- --configuration=production --base-href=/krutoy-toose/
 
       - name: Upload production artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist # Для стандартных Webpack/Vite сборок результат падает в корень dist
+          path: dist/krutoy-toose/browser
+          # Если сборка упадет с ошибкой "Path dist/krutoy-toose/browser does not exist",
+          # значит у вас более старая версия Angular (до 17). 
+          # В таком случае замените эту строку на: path: dist/krutoy-toose
 
       - name: Deploy to GitHub Pages
         id: deployment
