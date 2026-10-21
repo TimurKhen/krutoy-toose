@@ -1,35 +1,48 @@
-name: Build and Deploy Angular to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 22
+          cache: npm
 
-      - name: Install Dependencies
-        run: npm ci
+      - run: npm ci
 
-      - name: Build Angular Application
+      - name: Build
         run: npx ng build --configuration production --base-href /krutoy-toose/
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: SPA fallback
+        run: cp dist/krutoi-toose/browser/index.html dist/krutoi-toose/browser/404.html
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          # FIXED: Removed the trailing /browser folder from the path
-          folder: dist/krutoi-toose/browser
-          branch: gh-pages
+          path: dist/krutoi-toose/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
