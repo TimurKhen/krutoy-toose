@@ -1,31 +1,49 @@
 <div class="header">
   @if (userData(); as user) {
-      <div
-        class="user-data"
-        animate.enter="enter"
-        (pointerdown)="showHideAccurate($event)"
-        [class.accurate]="isShowAccurateScore()"
-      >
+    <div
+      class="user-data"
+      animate.enter="enter"
+      (pointerdown)="showHideAccurate($event)"
+      [class.accurate]="isShowAccurateScore()"
+    >
+      <span class="avatar">
+        <img [src]="user.photo_url" />
+      </span>
 
-        <span class="avatar">
-          <img [src]="user.photo_url" />
-        </span>
+      <div class="blocks">
         <span class="score">
           @if (isSaving()) {
             <p
+              data-testid="saving-text"
               class="loading-text"
               animate.enter="text-enter"
               animate.leave="text-leave"
             >Сохранение...</p>
           } @else {
             <p
+              data-testid="value"
               class="score-text"
               animate.enter="text-enter"
               animate.leave="text-leave"
-            >{{ userScore() | shortNumber:isShowAccurateScore()}} лосяр</p>
+            >{{ userScore() | shortNumber }} лосяр</p>
           }
         </span>
+
+        @if (isShowAccurateScore()) {
+          <div class="coin-style-select" animate.leave="coins-leave">
+            @for (coin of userCoins(); track coin; let i = $index) {
+              <div
+                (pointerdown)="changeCoinStyle(coin)"
+                class="coin-select"
+                animate.enter="coin-enter"
+                [style.--i]="i"
+              >
+                <img [src]="'coins/' + coin + '.png'" />
+              </div>
+            }
+          </div>
+        }
       </div>
+    </div>
   }
 </div>
-

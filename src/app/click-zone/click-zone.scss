@@ -59,6 +59,7 @@
       opacity: 0.8;
       mix-blend-mode: screen;
       transform: scale(1.1);
+      --final-opacity: 0.8;
 
       -webkit-backface-visibility: hidden;
       -moz-backface-visibility: hidden;
@@ -67,4 +68,22 @@
       will-change: transform;
     }
   }
+}
+
+.coin-in {
+  animation: coin-fade-in 0.35s ease-out both;
+}
+
+.coin-out {
+  animation: coin-fade-out 0.35s ease-out both;
+}
+
+@keyframes coin-fade-in {
+  from { opacity: 0; }
+  to   { opacity: var(--final-opacity, 1); }
+}
+
+@keyframes coin-fade-out {
+  from { opacity: var(--final-opacity, 1); }
+  to   { opacity: 0; }
 }

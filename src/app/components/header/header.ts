@@ -1,27 +1,35 @@
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { Telegram } from '../../telegram/telegram';
-import { DecimalPipe } from '@angular/common';
 import { ScoreHandler } from '../../handlers/score-handler/score-handler';
 import { User } from '../../telegram/user';
 import { ShortNumberPipe } from '../../pipes/short-number-pipe/short-number-pipe';
 import { NavigationEnd, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
+import { MarketService } from '../../api/market/market-service';
 
 @Component({
   selector: 'app-header',
-  imports: [DecimalPipe, ShortNumberPipe],
+  imports: [ShortNumberPipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
 export class Header implements OnInit {
   userData = signal<User | null>(null);
-  private scoreHandler = inject(ScoreHandler);
-  userScore = this.scoreHandler.currentScore;
   private tgService = inject(Telegram);
+  private scoreHandler = inject(ScoreHandler);
+  private router = inject(Router);
+  private marketService = inject(MarketService);
+  userScore = this.scoreHandler.currentScore;
   isSaving = this.scoreHandler.isSavingScore;
   isShowAccurateScore = signal<boolean>(false);
-  private router = inject(Router);
+
+  userCoins = signal<['copper', 'iron', 'gold', 'legendary']>([
+    'copper',
+    'iron',
+    'gold',
+    'legendary',
+  ]);
 
   currentUrl = toSignal(
     this.router.events.pipe(
@@ -35,7 +43,7 @@ export class Header implements OnInit {
     effect(() => {
       console.log(this.currentUrl());
       if (this.currentUrl().includes('market')) {
-        this.isSaving.set(false)
+        this.isSaving.set(false);
       }
     });
   }
@@ -61,5 +69,9 @@ export class Header implements OnInit {
     $event.preventDefault();
 
     this.isShowAccurateScore.update((v) => !v);
+  }
+
+  changeCoinStyle(coin: 'copper' | 'iron' | 'gold' | 'legendary') {
+    this.marketService.selectCoin(coin);
   }
 }

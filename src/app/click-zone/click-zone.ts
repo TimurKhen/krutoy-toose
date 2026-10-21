@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Telegram } from '../telegram/telegram';
 import { catchError, debounceTime, delay, EMPTY, Subject, switchMap, tap } from 'rxjs';
@@ -7,6 +7,7 @@ import { ScoreHandler } from '../handlers/score-handler/score-handler';
 import { DataStorage } from '../api/data-storage/data-storage';
 import { ClickEffect } from './click-effect/click-effect';
 import { NgOptimizedImage } from '@angular/common';
+import { MarketService } from '../api/market/market-service';
 
 @Component({
   selector: 'app-click-zone',
@@ -18,14 +19,16 @@ import { NgOptimizedImage } from '@angular/common';
 export class ClickZone implements OnInit {
   userData = signal<any>(null);
 
-  private pendingClicks = signal<number>(0);
-
   private tgService = inject(Telegram);
   private scoreHandler = inject(ScoreHandler);
+  marketService = inject(MarketService);
+
+  private pendingClicks = signal<number>(0);
   userScore = this.scoreHandler.currentScore;
   private dataStorage = inject(DataStorage);
   private destroyRef = inject(DestroyRef);
   private saveSubject = new Subject<void>();
+  coinLayers = computed(() => [this.marketService.currentCoin()]);
 
   constructor() {
     this.saveSubject

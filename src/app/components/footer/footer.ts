@@ -25,11 +25,6 @@ export class Footer {
       image: './icons/home.svg',
       link: '/',
       title: 'Главная',
-    },
-    {
-      image: './icons/cart.svg',
-      link: '/teams',
-      title: 'Команды',
-    },
+    }
   ];
 }
