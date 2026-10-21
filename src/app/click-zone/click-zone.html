@@ -1,8 +1,23 @@
 <div class="container" appClickEffect #tooseButton appClickReactionAnimation (pointerdown)="onCoinClick($event)">
-  <button
-    class="coin-btn"
-  >
-    <img alt="coin" class="image" src="coins/gold.png" fill priority>
-    <img alt="coin" class="image-glow" src="coins/gold.png">
+  <button class="coin-btn">
+    @for (coin of coinLayers(); track coin) {
+      <img
+        alt="coin"
+        class="image"
+        data-testid="coin"
+        animate.enter="coin-in"
+        animate.leave="coin-out"
+        [src]="'coins/' + coin + '.png'"
+        fill
+        priority
+      >
+      <img
+        alt="coin"
+        class="image-glow"
+        animate.enter="coin-in"
+        animate.leave="coin-out"
+        [src]="'coins/' + coin + '.png'"
+      >
+    }
   </button>
 </div>
